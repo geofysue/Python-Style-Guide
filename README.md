@@ -286,3 +286,133 @@ do_one(); do_two(); do_three()
 ```
 
 ## Comentarios
+Es necesario mantener los comentarios actualizados conforme se modifica el código. Si el código es público, lo ideal es hacer los comentarios en inglés.
+
+Los **bloques de comentarios** irán con la misma sangría que el código al que se hace referencia. Cada línea del bloque de comentarios comienza con ``#`` y un espacio, a menos que sea texto indentado dentro del comentario. Los parágrafos se separarán con una línea que contenga un único ``#``, de modo que la línea no se compute.
+
+Los **comentarios inline** deben usarse de manera dispersa. Estos comentarios deben separarse del código con al menos dos espacios. Comienzan con ``#`` y un espacio. No usar comentarios innecesarios.
+
+### *Docstrings*
+Lo ideal es escribir docstrings para todos los módulos, funciones, clases y métodos públicos. Estos docstrings se convierten en el atributo especial ``__doc__`` del objeto al que se refieren. Un *package* puede ser comentado en el docstring del archivo ``__init__.py``. Los docstrings se indican con ``"""`` al principio y al final.
+
+Hay dos tipos de docstrings. Los multi-line deben incluir una línea resumen, seguida de una descripción más elaborada. Si es el docstring de una función o método debe además resumir los argumentos y el output..
+
+```python
+# One-liner docstring.
+def spam(eggs):
+    """Multiplica el argumento por dos y devuelve un número."""
+    ham = eggs * 2
+    return ham
+
+# Multi-line docstrings.
+def complex(real=0.0, imag=0.0):
+    """Form a complex number.
+
+    Keyword arguments:
+    real -- the real part (default 0.0)
+    imag -- the imaginary part (default 0.0)
+    """
+    if imag == 0.0 and real == 0.0:
+        return complex_zero
+    ...
+
+```
+
+## Poner nombres
+
+Hay distintos estilos a la hora de poner nombres. Algunos comunes son los siguientes:
+- ``b``
+- ``B``
+- ``lowercase``
+- ``lower_case_with_underscores``
+- ``UPPERCASE``
+- ``UPPER_CASE_WITH_UNDERSCORES``
+- ``CamelCase``
+- ``lowerCamelCase``
+- ``Capitalized_Words_With_Underscores``
+
+En los dos primeros casos, evitar usar  "l" (letra ele minúscula), "O" (letra o mayúscula), o "I" (letra i mayúscula).
+
+### Nombres de módulos y paquetes
+Deben seguir el estilo ``lowercase`` o ``lower_case_with_underscores``.
+
+### Nombres de clases
+Deben usar el estilo ``CamelCase``. Esto también aplica a las excepciones (ya que deben ser clases).
+
+### Nombres de funciones y variables
+Deben seguir el estilo ``lowercase`` o ``lower_case_with_underscores``.
+
+### Nombres de constantes
+Definidas a nivel de módulo, siguiendo el estilo ``UPPERCASE`` o ``UPPER_CASE_WITH_UNDERSCORES``.
+
+## Anotaciones
+### Anotación de variables
+```python
+# Correcto:
+
+code: int
+
+class Point:
+    coords: Tuple[int, int]
+    label: str = '<unknown>'
+```
+```python
+# Incorrecto:
+
+code:int  # No space after colon
+code : int  # Space before colon
+
+class Test:
+    result: int=0  # No spaces around equality sign
+```
+
+### Anotación de funciones
+```python
+def greeting(name: str) -> str:
+    return 'Hello ' + name
+```
+
+## Recomendaciones
+- Comparaciones con *singletons* como ``None`` deben hacerse usando ``is`` o ``is not``, nunca con operadores de igualdad.
+- Usa el operador ``is not`` en lugar de ``not ... is``.
+  ```python
+  # Correcto.
+  if foo is not None:
+  ```
+  ```python
+  # Incorrecto.
+  if not foo is None:
+  ```
+- Deriva excepciones a partir de ``Exception``.
+- Consistencia con los ``return``.
+  ```python
+  # Correcto.
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
+      else:
+          return None
+  
+  # Incorrecto.
+  def foo(x):
+      if x >= 0:
+          return math.sqrt(x)
+  ```
+- Usar ``isinstance()`` para comparar el tipo de objeto.
+  ```python
+  # Correcto:
+  if isinstance(obj, int):
+  ```
+  ```python
+  # Incorrecto:
+  if type(obj) is type(1):
+  ```
+- No comparar valores booleanos usando ``True`` y ``False``.
+  ```python
+  # Correcto:
+  if greeting:
+  ```
+  ```python
+  # Incorrecto:
+  if greeting == True:
+  ```
