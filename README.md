@@ -1,4 +1,4 @@
-# Python-Style-Guide
+# Guía de estilo de Python
 *Style guide based on Python Enhanced Proposals (PEP).*
 
 Como señala el autor de las guías de estilo originales, Guido van Rossum, el código se lee mucho más a menudo de lo que se escribe. Ante todo, cualquier guía de estilo de Python debe tener como base los enunciados de Tim Peters, conocidos como "El Zen de Python". A saber:
